@@ -1,0 +1,199 @@
+<html>
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+	$(document).ready(function(){
+		$( ".linkV18" ).hide();
+		//$( ".linkV22" ).show();
+		$( "#testLinksMsg").hide();
+		$( "#liveLinksMsg").hide();
+		$( "#append").hide();
+		$( ".delPlus").hide();		
+		$(".getPlus").click(function(){
+			$( "#append").show();
+			$( ".delPlus").show();	
+			$( ".getPlus").hide();	
+		});
+		$(".delPlus").click(function(){
+			$( "#append").hide();
+			$( "#append").val('');
+			$( ".delPlus").hide();	
+			$( ".getPlus").show();	
+		});
+		
+		$(".mode5").click(function(){
+			var mode5pnum = $.trim($("#pnum").val())+"";
+			var mode5append = $.trim($("#append").val())+"";
+			var mode5tLink = "";
+			mode5tLink += "https://online.ssisurveys.com/wix/"+mode5pnum+".aspx?mode=5";
+			//if(mode5append!==''){mode5tLink += "&"+mode5append;}
+			if(mode5append!==''){mode5tLink += ""+mode5append;}
+			alert(mode5tLink);
+			window.open(mode5tLink);
+		});
+		$(".getLink").click(function(){
+			$( ".linkV18" ).hide();
+			//$( ".linkV22" ).show();
+			var ver = $("input[name='version']:checked").val();
+			
+			var pnum = $.trim($("#pnum").val())+"";
+				$("#pnum").val(""+pnum);
+			var tLink = "";
+			var append = $.trim($("#append").val())+"";
+				
+			tLink += "TEST LINK: Shows question and punch numbering to make testing easier:\n";
+			tLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?mode=2";
+				//if(append!==''){tLink += "&"+append;}
+				if(append!==''){tLink += ""+append;}
+			tLink += "\n";
+			tLink += "TEST LINK: Shows the survey without punch numbering:";
+			tLink += "\n";
+			tLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?mode=1";
+				//if(append!==''){tLink += "&"+append;}
+				if(append!==''){tLink += ""+append;}
+			$("#testLinks").val(tLink);
+			
+			var lLink = "";
+			lLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?__extsid__=<#EncryptedConfirmitID[]>&l=9&pid=<#DubKnowledge[1500/Entity id]>&<#IdParameter[Name]>=<#IdParameter[Value]>";
+				//if(append!==''){lLink += "&"+append;}
+				if(append!==''){lLink += ""+append;}
+			
+			$("#liveLinks").val(lLink);
+			$( ".link"+ver ).show();
+			if( pnum.split(" ").length - 1 > 0){
+				alert("White space detected.");
+			//}elese{
+				//$(".pnum").html(pnum);
+				//$("#testLinks").val(tLink);
+			}
+		});
+
+	});
+	  
+	</script>
+	<style>
+		.link{
+			font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+			font-size: 11pt;
+			font-style: normal;
+			font-variant: normal;	
+		}
+		*{
+			font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+			font-size: 11pt;
+			font-style: normal;
+			font-variant: normal;	
+		}
+
+		textarea{
+			max-width: 750px !important;
+			max-heigth: 750px !important;
+		}
+		h1 { 
+			display: block;
+			font-size: 3em;
+			margin-top: 0.67em;
+			margin-bottom: 0.67em;
+			margin-left: 0;
+			margin-right: 0;
+			font-weight: bold;
+			color: green;
+		}
+	</style>
+
+	<body style='font-family="Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif"' bgcolor='#edf9ff'>
+	<center><h1>V22 LINK GENERATOR</h1>
+	<table valign='center'><tr><td>
+		<!--<div>-->
+			<table>
+			<tr>
+				<td valign="top">
+				Confirmit project number:
+				</td>
+				<td>
+					<input type="text" id="pnum">
+					<input type="button" value="+" class="getPlus"><input type="button" value="X" class="delPlus">
+					<input type="text" id="append">
+					<!-- <form>
+						<input disabled id='version' type="radio" name="version" value="v18">v18
+						<input disabled id='version' type="radio" name="version" value="v22">v22
+					</form> -->
+				<br>
+				<input type="button" value="Generate link" class="getLink">
+				<input type="button" value="Test Mode 5" class="mode5">
+				</td>
+			</tr>
+
+			</table>
+		</div>
+		<br/><br/>
+		
+		<div class="linkv18"><table border=1>
+			<tr><td>
+				<br>v18 Test links--
+				<br>TEST LINK: Shows question and punch numbering to make testing easier:
+				<br>https://online.ssisurveys.com/wix/<span class="pnum">pXXXXXXX</span>.aspx?mode=2
+				<br>TEST LINK: Shows the survey without punch numbering:
+				<br>https://online.ssisurveys.com/wix/<span class="pnum">pXXXXXXX</span>.aspx?mode=1
+				<br>
+				<br>v18 Live link--
+				<br>https://online.ssisurveys.com/wix/<span class="pnum">pXXXXXXX</span>.aspx?__extsid__=<#EncryptedConfirmitID[]>&l=9&pid=<#DubKnowledge[1500/Entity id]>&<#IdParameter[Name]>=<#IdParameter[Value]>
+				<br>&nbsp;
+			</td></tr>
+		</table></div>
+		
+		
+		<div class="linkv22">
+			<table border=1>
+			<tr><td>
+				<br><b>&nbsp; v22 Test links -- </b><button onclick="copy('#testLinks')">Copy</button>  <FONT id="testLinksMsg" color="green" >ka-blagh! *(&$^%</FONT>
+				<form>  
+				<textarea readonly cols="80" id="testLinks" rows="4">[provide the confirmit project number.]</textarea>
+				</form>
+				<br><b>&nbsp; v22 Live link -- </b><button onclick="copy('#liveLinks')">Copy</button>  <FONT id="liveLinksMsg" color="green" >ka-pow! $@#$%^ </FONT> 
+
+				<form>
+				<textarea readonly cols="80" id="liveLinks" rows="2">[provide the confirmit project number.]</textarea>
+				</form>
+			</td></tr>	
+		</table>			
+		</div>	
+		
+		</td></tr></table></center>
+		<script>
+			function copyToClipboard(element) {
+				var $temp = $("<input>");
+				$("body").append($temp);
+				$temp.val($(element).val()).select();
+				document.execCommand("copy");
+				$temp.remove();
+			}
+			
+			function copy(element)
+			{
+				try
+				{
+					$(element).select();
+					document.execCommand('copy');
+					//alert("copied");
+					var comicPowArray = ['BAM!','%$#^& ZAAAAPP!! (*&^','B o o m ! !',
+							'A a a g h h h !','#!@ KRAK!~','T H O O M!','PLOP!','&%^ POP~ 765',
+							'ka-blagh! *(&$^%','ka-pow! $@#$%^','#$% Togsh (&^&',' *&^%$ C L A N K $%^&*(',
+							'!@#!BLOP','^^%$ toink! (*^%',' ! !!  #whoooooooshh !!   !!', 'wswswswswswswswswswswsw','PPP!!!!!!'];
+					var comicPow = comicPowArray[Math.floor(Math.random()*comicPowArray.length)];
+					$(element+"Msg").html(comicPow);
+					$(element+"Msg").show();
+					setTimeout(function() {
+						$(element+"Msg").fadeOut('fast');
+					}, 250); // <-- time in milliseconds
+				}
+				catch(e)
+				{
+					alert(e);
+				}
+			}
+			</script>
+	</body>
+</html>
+
+	
