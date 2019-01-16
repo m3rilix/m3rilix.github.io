@@ -42,16 +42,17 @@
 		});
 		
 		$(".mode5").click(function(){
-			var mode5pnum = $.trim($("#pnum").val())+"";
-			var mode5append = $.trim($("#append").val())+"";
-			
-			var mode5tLink = "";
-			mode5tLink += "https://online.ssisurveys.com/wix/"+mode5pnum+".aspx?";
+			//var mode5pnum = $.trim($("#pnum").val())+"";
+			//var mode5append = $.trim($("#append").val())+"";
+			 
+			//var mode5tLink = "";
+			//mode5tLink += "https://online.ssisurveys.com/wix/"+mode5pnum+".aspx?";
 			//if(mode5append!==''){mode5tLink += "&"+mode5append;}
 			//if(diaryAppend!==''){mode5tLink += ""+diaryAppend;}
-			if(mode5append!==''){mode5tLink += ""+mode5append;}
-			alert(mode5tLink);
-			window.open(mode5tLink);
+			//if(mode5append!==''){mode5tLink += ""+mode5append;}
+			var diaryLink = $("#testLinksDiary").val()
+			alert(diaryLink);
+			window.open(diaryLink);
 		});
 
 
