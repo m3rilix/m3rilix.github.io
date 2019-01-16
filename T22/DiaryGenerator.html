@@ -1,0 +1,215 @@
+<html>
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+	$(document).ready(function(){
+		//$( ".linkV18" ).hide();
+		//$( ".linkV22" ).show();
+		$( "#testLinksMsg").hide();
+		$( "#liveLinksMsg").hide();
+		$( "#append").hide();
+		$( ".delPlus").hide();	
+		if($('#testLinksDiary').val().length > 0 ) $('.mode5').prop('disabled', true);
+		$(".getPlus").click(function(){
+			$( "#append").show();
+			$( ".delPlus").show();	
+			$( ".getPlus").hide();	
+		});
+		$(".delPlus").click(function(){
+			$( "#append").hide();
+			$( "#append").val('');
+			$( ".delPlus").hide();	
+			$( ".getPlus").show();	
+		});
+
+		$(".getLink").click(function(){
+			var ver = $("input[name='version']:checked").val();
+			
+			var pnum = $.trim($("#pnum").val())+"";
+				$("#pnum").val(""+pnum);
+			var tLink = "";
+			var append = $.trim($("#append").val())+"";
+			var diaryAppend = "mode="+$.trim($("#mode").val())+
+							  "&day="+$.trim($("#day").val())+
+							  "&dumdate="+$.trim($("#dumdate").val())+
+							  "&st="+$("input[id='st']:checked").val()+
+							  "&cn="+$.trim($("#cn").val());
+				
+			tLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?"+diaryAppend;
+			$("#testLinksDiary").val(tLink);
+			$('.mode5').prop('disabled', false);
+
+		});
+		
+		$(".mode5").click(function(){
+			var mode5pnum = $.trim($("#pnum").val())+"";
+			var mode5append = $.trim($("#append").val())+"";
+			
+			var mode5tLink = "";
+			mode5tLink += "https://online.ssisurveys.com/wix/"+mode5pnum+".aspx?";
+			//if(mode5append!==''){mode5tLink += "&"+mode5append;}
+			//if(diaryAppend!==''){mode5tLink += ""+diaryAppend;}
+			if(mode5append!==''){mode5tLink += ""+mode5append;}
+			alert(mode5tLink);
+			window.open(mode5tLink);
+		});
+
+
+	});
+	  
+	</script>
+	<style>
+		.link{
+			font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+			font-size: 11pt;
+			font-style: normal;
+			font-variant: normal;	
+		}
+		*{
+			font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+			font-size: 11pt;
+			font-style: normal;
+			font-variant: normal;	
+		}
+
+		textarea{
+			max-width: 750px !important;
+			max-heigth: 750px !important;
+		}
+		h1 { 
+			display: block;
+			font-size: 3em;
+			margin-top: 0.67em;
+			margin-bottom: 0.67em;
+			margin-left: 0;
+			margin-right: 0;
+			font-weight: bold;
+			color: red;
+		}
+	</style>
+
+	<body style='font-family="Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif"' bgcolor='#ffff99'>
+	<center><h1>Diary LINK GENERATOR</h1>
+	<table valign='center'><tr><td>
+		<!--<div>-->
+			<table>
+			<tr>
+				<td valign="top">
+				Confirmit project number:
+				</td>
+				<td>
+					<input type="text" id="pnum">
+					<input type="button" value="+" class="getPlus"><input type="button" value="X" class="delPlus" hidden>
+					<input type="text" id="append">
+					<!-- <form>
+						<input disabled id='version' type="radio" name="version" value="v18">v18
+						<input disabled id='version' type="radio" name="version" value="v22">v22
+					</form> -->
+				<br>
+				
+				<table><tr><td></td></tr>
+				<tr><td>
+					<select name="mode" id="mode">
+						<option value="X">MODE</option>
+						<option value="1">MODE 1</option>
+						<option value="2">MODE 2</option>
+						<option value="5" selected>MODE 5</option>
+					</select>
+					<select name="day" id="day">
+						<option value="x">Diary Day</option>
+						<option value="1" selected>1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+					</select>
+					<form>
+					<input id='st' type="radio" name="version" value="1">Adult
+					<input id='st' type="radio" name="version" value="2" checked="checked">Child
+					</form>
+				</td></tr>
+				<tr><td>				
+					<!--- <td><form><input type="checkbox" value="test"></form></td>--->
+					<input type="text" id="dumdate" size='10' placeholder="MMDDYYYY"  value="01012019">
+					<input type="text" id="cn" size='10' placeholder="Child Name" value="CHILDNAME">
+				</td></tr>
+				</table>
+				<br>
+				<input type="button" value="Generate link" class="getLink">
+				<input type="button" value="Open Link" class="mode5">
+				</td>
+			</tr>
+
+			</table>
+		</div>
+		<br/><br/>
+
+		<div class="linkv22Diary" >
+			<table border=1>
+			<tr><td>
+				<br><b>&nbsp; v22 Test links -- </b><button onclick="copy('#testLinksDiary')">Copy</button>  <FONT hidden id="testLinksMsg" color="green" >ka-blagh! *(&$^%</FONT>
+				<form>  
+				<textarea readonly cols="80" id="testLinksDiary" rows="4">[provide the confirmit project number.]</textarea>
+				</form>		
+			</td></tr>	
+		</table>			
+		</div>	
+		
+		<!-- <div class="linkv22" hidden>
+			<table border=1>
+			<tr><td>
+				<br><b>&nbsp; v22 Test links -- </b><button onclick="copy('#testLinks')">Copy</button>  <FONT hidden id="testLinksMsg" color="green" >ka-blagh! *(&$^%</FONT>
+				<form>  
+				<textarea readonly cols="80" id="testLinks" rows="4">[provide the confirmit project number.]</textarea>
+				</form>
+				
+				<br><b>&nbsp; v22 Live link -- </b><button onclick="copy('#liveLinks')">Copy</button>  <FONT hidden id="liveLinksMsg" color="green" >ka-pow! $@#$%^ </FONT> 
+				<form>
+				<textarea readonly cols="80" id="liveLinks" rows="2">[provide the confirmit project number.]</textarea>
+				</form>
+				<script type="text/javascript" src="//counter.websiteout.net/js/6/6/0/0"></script>
+				<br>
+			</td></tr>	
+		</table>			
+		</div>	-->
+		
+		</td></tr></table></center>
+		<script>
+			function copyToClipboard(element) {
+				var $temp = $("<input>");
+				$("body").append($temp);
+				$temp.val($(element).val()).select();
+				document.execCommand("copy");
+				$temp.remove();
+			}
+			
+			function copy(element)
+			{
+				try
+				{
+					$(element).select();
+					document.execCommand('copy');
+					//alert("copied");
+					var comicPowArray = ['BAM!','%$#^& ZAAAAPP!! (*&^','B o o m ! !',
+							'A a a g h h h !','#!@ KRAK!~','T H O O M!','PLOP!','&%^ POP~ 765',
+							'ka-blagh! *(&$^%','ka-pow! $@#$%^','#$% Togsh (&^&',' *&^%$ C L A N K $%^&*(',
+							'!@#!BLOP','^^%$ toink! (*^%',' ! !!  #whoooooooshh !!   !!', 'wswswswswswswswswswswsw','PPP!!!!!!'];
+					var comicPow = comicPowArray[Math.floor(Math.random()*comicPowArray.length)];
+					$(element+"Msg").html(comicPow);
+					$(element+"Msg").show();
+					setTimeout(function() {
+						$(element+"Msg").fadeOut('fast');
+					}, 250); // <-- time in milliseconds
+				}
+				catch(e)
+				{
+					alert(e);
+				}
+			}
+			</script>
+	</body>
+</html>
+
+	
