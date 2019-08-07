@@ -7,31 +7,46 @@
 		//$( ".linkV22" ).show();
 		$( "#testLinksMsg").hide();
 		$( "#liveLinksMsg").hide();
-		$( "#append").hide();
-		$( ".delPlus").hide();		
-		$(".getPlus").click(function(){
-			$( "#append").show();
+		//$( "#append").hide();
+		$( ".delPlus").hide();	
+		//$( ".getPlus").hide();		
+		/*$(".getPlus").click(function(){
+			//$( "#append").show();
 			$( ".delPlus").show();	
 			$( ".getPlus").hide();	
 		});
 		$(".delPlus").click(function(){
-			$( "#append").hide();
+			//$( "#append").hide();
 			$( "#append").val('');
 			$( ".delPlus").hide();	
 			$( ".getPlus").show();	
-		});
+		});*/
 		
 		$(".mode5").click(function(){
+			var temp="";
+			if($(this).hasClass( "help" )) temp = "help"; 
+			if($(this).hasClass( "all" )) temp = "all"; 
 			var mode5pnum = $.trim($("#pnum").val())+""; 
 			var mode5append = $.trim($("#append").val())+"";
 			var mode5tLink = "";
-			mode5tLink += "https://online.ssisurveys.com/wix/"+mode5pnum+".aspx?mode=5";
-			//if(mode5append!==''){mode5tLink += "&"+mode5append;}
-			if(mode5append!==''){mode5tLink += ""+mode5append;}
-			alert(mode5tLink);
-			window.open(mode5tLink);
+			var PIN = $.trim($("#PIN").val())+"";
+			if(PIN == ''){
+				alert("PIN required to use test ALL mode.");
+			}else{
+				mode5tLink += "https://online.ssisurveys.com/wix/"+mode5pnum+".aspx?pin="+PIN+"&test="+temp;
+				//if(mode5append!==''){mode5tLink += "&"+mode5append;}
+				if(mode5append!==''){mode5tLink += ""+mode5append;}
+				alert(mode5tLink);
+				window.open(mode5tLink);
+			}
 		});
+
 		$(".getLink").click(function(){
+			var PIN = $.trim($("#PIN").val())+"";
+			if(PIN == ''){
+				alert("PIN required.");
+			}else{
+
 			$( ".linkV18" ).hide();
 			//$( ".linkV22" ).show();
 			var ver = $("input[name='version']:checked").val();
@@ -40,21 +55,33 @@
 				$("#pnum").val(""+pnum);
 			var tLink = "";
 			var append = $.trim($("#append").val())+"";
+
+			var TestMode = $.trim($("#TestMode").val())+"";
+			var temp = "";
+
+			if(PIN!==''){temp += "?pin="+PIN;}
+			if(TestMode!==''){
+				if(temp!==''){ temp += "&"; }else{ temp += "?"; }
+				temp += "test="+TestMode;}
+
 				
 			tLink += "TEST LINK: Shows question and punch numbering to make testing easier:\n";
-			tLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?mode=2";
+			tLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx";
 				//if(append!==''){tLink += "&"+append;}
+				if(temp!==''){tLink += ""+temp;}
 				if(append!==''){tLink += ""+append;}
 			tLink += "\n";
 			tLink += "TEST LINK: Shows the survey without punch numbering:";
 			tLink += "\n";
-			tLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?mode=1";
+			tLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx";
 				//if(append!==''){tLink += "&"+append;}
 				if(append!==''){tLink += ""+append;}
 			$("#testLinks").val(tLink);
 			
 			var lLink = "";
-			lLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?__extsid__=<#EncryptedConfirmitID[]>&l=9&pid=<#DubKnowledge[1500/Entity id]>&<#IdParameter[Name]>=<#IdParameter[Value]>";
+			var language = $.trim($("#langCode").val())+"";
+			if(language!=='') language = "&l="+language;
+			lLink += "https://online.ssisurveys.com/wix/"+pnum+".aspx?__extsid__=<#EncryptedConfirmitID[]>"+language+"&pid=<#DubKnowledge[1500/Entity id]>&<#IdParameter[Name]>=<#IdParameter[Value]>";
 				//if(append!==''){lLink += "&"+append;}
 				if(append!==''){lLink += ""+append;}
 			
@@ -66,6 +93,7 @@
 				//$(".pnum").html(pnum);
 				//$("#testLinks").val(tLink);
 			}
+		}
 		});
 
 	});
@@ -97,34 +125,40 @@
 			margin-left: 0;
 			margin-right: 0;
 			font-weight: bold;
-			color: green;
+			color: white;
 		}
 	</style>
 
-	<body style='font-family="Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif"' bgcolor='#edf9ff'>
-	<center><h1>V22 LINK GENERATOR</h1>
-	<table valign='center'><tr><td>
-		<!--<div>-->
-			<table>
-			<tr>
-				<td valign="top">
-				Confirmit project number:
-				</td>
-				<td>
-					<input type="text" id="pnum">
-					<input type="button" value="+" class="getPlus"><input type="button" value="X" class="delPlus">
-					<input type="text" id="append">
-					<!-- <form>
-						<input disabled id='version' type="radio" name="version" value="v18">v18
-						<input disabled id='version' type="radio" name="version" value="v22">v22
-					</form> -->
-				<br>
-				<input type="button" value="Generate link" class="getLink">
-				<input type="button" value="Test Mode 5" class="mode5">
-				</td>
-			</tr>
+	<body style='font-family="Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif"' bgcolor='#BF7F7F'>
+	<center><h1>V22 LINK GENERATOR (GUST)</h1>
 
-			</table>
+	<table valign='left' width="500px"><tr><td>
+		<tr>
+			<td valign="middle">
+				Confirmit project number:
+			</td>
+			<td>
+				<input type="text" id="pnum" placeholder="pXXXXXXXX">
+				<input type="button" value="+" class="getPlus"><input type="button" value="X" class="delPlus">
+				<input type="text" id="append" placeholder="&append=append">
+			</td>
+		</tr>
+		<br>
+		<tr>	
+			<td colspan="2" valign='center'>	
+				PIN: <input type="text" id="PIN" size='10' placeholder="PIN"  value="">  &nbsp;&nbsp; 
+				Test Mode: <input type="text" id="TestMode" size='10' placeholder="Test Mode" value="clnt">   &nbsp;&nbsp;
+				Language: <input type="text" id="langCode" size='10' placeholder="Lang Code" value="9">
+				<br><br>
+				<center>
+				<input type="button" value="Generate link" class="getLink">
+				<input type="button" value="Test 'ALL'" class="mode5 all">
+				<input type="button" value="Test 'Help'" class="mode5 help">
+			</center>
+			</td>
+		</tr>
+	</table>
+
 		</div>
 		<br/><br/>
 
@@ -135,12 +169,12 @@
 			<tr><td>
 				<br><b>&nbsp; v22 Test links -- </b><button onclick="copy('#testLinks')">Copy</button>  <FONT id="testLinksMsg" color="green" >ka-blagh! *(&$^%</FONT>
 				<form>  
-				<textarea readonly cols="80" id="testLinks" rows="4">[provide the confirmit project number.]</textarea>
+				<textarea readonly cols="100" id="testLinks" rows="4">[provide the confirmit project number.]</textarea>
 				</form>
 				
 				<br><b>&nbsp; v22 Live link -- </b><button onclick="copy('#liveLinks')">Copy</button>  <FONT id="liveLinksMsg" color="green" >ka-pow! $@#$%^ </FONT> 
 				<form>
-				<textarea readonly cols="80" id="liveLinks" rows="2">[provide the confirmit project number.]</textarea>
+				<textarea readonly cols="100" id="liveLinks" rows="3">[provide the confirmit project number.]</textarea>
 				</form>
 				<script type="text/javascript" src="//counter.websiteout.net/js/6/6/0/0"></script>
 				<br>
