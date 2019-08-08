@@ -1,0 +1,222 @@
+<html>
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+	$(document).ready(function(){
+		//$( ".linkV18" ).hide();
+		//$( ".linkV22" ).show();
+		$( "#testLinksMsg").hide();
+		$( "#liveLinksMsg").hide();
+		//$( "#append").hide();
+		$( ".delPlus").hide();	
+		//$( ".getPlus").hide();		
+		/*$(".getPlus").click(function(){
+			//$( "#append").show();
+			$( ".delPlus").show();	
+			$( ".getPlus").hide();	
+		});
+		$(".delPlus").click(function(){
+			//$( "#append").hide();
+			$( "#append").val('');
+			$( ".delPlus").hide();	
+			$( ".getPlus").show();	
+		});*/
+		
+		$(".mode5").click(function(){
+			var temp="";
+			if($(this).hasClass( "help" )) temp = "help"; 
+			if($(this).hasClass( "all" )) temp = "all"; 
+			var mode5pnum = $.trim($("#pnum").val())+""; 
+			var mode5append = $.trim($("#append").val())+"";
+			var mode5tLink = "";
+			var PIN = $.trim($("#PIN").val())+"";
+			if(PIN == ''){
+				alert("PIN required to use test ALL mode.");
+			}else{
+				mode5tLink += "https://online.ssisurveys.com/wix/"+mode5pnum+".aspx?pin="+PIN+"&test="+temp;
+				//if(mode5append!==''){mode5tLink += "&"+mode5append;}
+				if(mode5append!==''){mode5tLink += ""+mode5append;}
+				alert(mode5tLink);
+				window.open(mode5tLink);
+			}
+		});
+
+		$(".getLink").click(function(){
+			var pnum = $.trim($("#pnum").val())+"";
+				$("#pnum").val(""+pnum);
+			var bucket = $.trim($("#bucket").val())+"";
+				$("#bucket").val(""+bucket);
+
+			if(pnum == '' || bucket == ''){
+				alert("Decipher project number/bucket required.");
+			}else{
+
+				$( ".linkV18" ).hide();
+				//$( ".linkV22" ).show();
+				var ver = $("input[name='version']:checked").val();
+				
+
+				var tLink = "";
+				var append = $.trim($("#append").val())+"";
+				var list = $.trim($("#list").val())+"";
+				var decLang = $.trim($("#decLang").val())+"";
+
+
+				var temp = "?settings=showqid";
+
+					
+				tLink += "TEST LINK: Shows question and punch numbering to make testing easier:\n";
+				tLink += "http://survey-d.dynata.com/survey/selfserve/"+bucket+"/"+pnum;
+					//if(append!==''){tLink += "&"+append;}
+					if(temp!==''){tLink += ""+temp;}
+					if(append!==''){tLink += ""+append;}
+					if(list!==''){lLink += "&"+list;}
+				tLink += "\n";
+				tLink += "TEST LINK: Shows the survey without punch numbering:";
+				tLink += "\n";
+				tLink += "http://survey-d.dynata.com/survey/selfserve/"+bucket+"/"+pnum;
+					//if(append!==''){tLink += "&"+append;}
+					if(append!==''){tLink += "?"+append;}
+					if(list!==''){lLink += "&"+list;}
+				$("#testLinks").val(tLink);
+				
+				var lLink = "";
+				var language = $.trim($("#langCode").val())+"";
+				if(decLang!=='') decLang = "&decLang="+decLang;
+				lLink += "http://survey-d.dynata.com/survey/selfserve/"+bucket+"/"+pnum+"?pid=<#DubKnowledge[1500/Entity id]>&psid=<#IdParameter[Value]>";
+					//if(append!==''){lLink += "&"+append;}
+					if(list!==''){lLink += "&"+list;}
+					if(append!==''){lLink += ""+append;}
+				
+				$("#liveLinks").val(lLink);
+				$( ".link"+ver ).show();
+				if( pnum.split(" ").length - 1 > 0){
+					alert("White space detected.");
+				//}elese{
+					//$(".pnum").html(pnum);
+					//$("#testLinks").val(tLink);
+				}
+			}
+		});
+
+	});
+	  
+	</script>
+	<style>
+		.link{
+			font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+			font-size: 11pt;
+			font-style: normal;
+			font-variant: normal;	
+		}
+		*{
+			font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
+			font-size: 11pt;
+			font-style: normal;
+			font-variant: normal;	
+		}
+
+		textarea{
+			max-width: 750px !important;
+			max-heigth: 750px !important;
+		}
+		h1 { 
+			display: block;
+			font-size: 3em;
+			margin-top: 0.67em;
+			margin-bottom: 0.67em;
+			margin-left: 0;
+			margin-right: 0;
+			font-weight: bold;
+			color: white;
+		}
+	</style>
+
+	<body style='font-family="Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif"' bgcolor='#5babb3'>
+	<center><h1>Decipher LINK GENERATOR (GUST)</h1>
+
+	<table valign='left' width="500px"><tr><td>
+		<tr>
+			<td valign="middle">
+				Decipher project number:
+			</td>
+			<td>
+				<input type="text" id="pnum" placeholder="XXXXXXXX">
+				<input type="button" value="+" class="getPlus"><input type="button" value="X" class="delPlus">
+				<input type="text" id="append" placeholder="&append=append">
+			</td>
+		</tr>
+		<tr>	
+			<td colspan="2" valign='center'>	
+				Bucket: <input type="text" id="bucket" size='10' placeholder="Bucket" value="53b">   &nbsp;&nbsp;
+				List: <input type="text" id="list" size='10' placeholder="list" value="">   &nbsp;&nbsp;
+				Language: <input type="text" id="decLang" size='10' placeholder="decLang" value="">
+				<br>
+				<center>
+				<input type="button" value="Generate link" class="getLink">
+			</center>
+			</td>
+		</tr>
+	</table>
+
+		</div>
+		<br/>
+
+		
+		
+		<div class="linkv22">
+			<table border=1>
+			<tr><td>
+				<br><b>&nbsp; Test links -- </b><button onclick="copy('#testLinks')">Copy</button>  <FONT id="testLinksMsg" color="green" >ka-blagh! *(&$^%</FONT>
+				<form>  
+				<textarea readonly cols="100" id="testLinks" rows="4">[provide the decipher project number.]</textarea>
+				</form>
+				
+				<br><b>&nbsp; Live link -- </b><button onclick="copy('#liveLinks')">Copy</button>  <FONT id="liveLinksMsg" color="green" >ka-pow! $@#$%^ </FONT> 
+				<form>
+				<textarea readonly cols="100" id="liveLinks" rows="3">[provide the decipher project number.]</textarea>
+				</form>
+				<script type="text/javascript" src="//counter.websiteout.net/js/6/6/0/0"></script>
+				<br>
+			</td></tr>	
+		</table>			
+		</div>	
+		
+		</td></tr></table></center>
+		<script>
+			function copyToClipboard(element) {
+				var $temp = $("<input>");
+				$("body").append($temp);
+				$temp.val($(element).val()).select();
+				document.execCommand("copy");
+				$temp.remove();
+			}
+			
+			function copy(element)
+			{
+				try
+				{
+					$(element).select();
+					document.execCommand('copy');
+					//alert("copied");
+					var comicPowArray = ['BAM!','%$#^& ZAAAAPP!! (*&^','B o o m ! !',
+							'A a a g h h h !','#!@ KRAK!~','T H O O M!','PLOP!','&%^ POP~ 765',
+							'ka-blagh! *(&$^%','ka-pow! $@#$%^','#$% Togsh (&^&',' *&^%$ C L A N K $%^&*(',
+							'!@#!BLOP','^^%$ toink! (*^%',' ! !!  #whoooooooshh !!   !!', 'wswswswswswswswswswswsw','PPP!!!!!!' ,'ser wag po!'];
+					var comicPow = comicPowArray[Math.floor(Math.random()*comicPowArray.length)];
+					$(element+"Msg").html(comicPow);
+					$(element+"Msg").show();
+					setTimeout(function() {
+						$(element+"Msg").fadeOut('fast');
+					}, 250); // <-- time in milliseconds
+				}
+				catch(e)
+				{
+					alert(e);
+				}
+			}
+			</script>
+	</body>
+</html>
+
+	
